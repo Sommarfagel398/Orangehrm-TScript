@@ -134,6 +134,24 @@ class Dashboard:
         confirmed = self.wait.until(EC.presence_of_element_located(self.BUZZ_POST))
         return confirmed.is_displayed()
 
-    def users(self):
-        user_test = self.wait.until(EC.element_to_be_clickable(self.BUZZ_USERS))
-        user_test.click()
+    #this is for pie chart of Employee Distribution By Sub unit
+
+    def subunit_panel(self):
+        panel = self.wait.until(EC.visibility_of_element_located(self.EMPLOYEE_SUB_UNIT_CHART))
+        return panel.is_displayed()
+
+    def get_subunit_panel(self):
+        return self.wait.until(
+            EC.visibility_of_element_located(self.EMPLOYEE_SUB_UNIT_CHART)
+        )
+
+    #this is for pie chart of Employee Distribution by Location
+
+    def location_panel(self):
+        panel = self.wait.until(EC.visibility_of_element_located(self.EMPLOYEE_LOCATION_CHART))
+        return panel.is_displayed()
+
+    def get_location_panel(self):
+        return self.wait.until(
+            EC.visibility_of_element_located(self.EMPLOYEE_LOCATION_CHART)
+        )
