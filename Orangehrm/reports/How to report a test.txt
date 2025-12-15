@@ -1,0 +1,29 @@
+
+Then open the generated HTML file in a browser to view pass/fail details.
+
+## Generating HTML reports
+
+With the `pytest-html` plugin installed, generate a simple HTML report by running:[web:19]
+
+
+## Usage details
+
+- All tests use the `driver` fixture from `conftest.py` which:
+  - Launches a Chrome browser.
+  - Maximizes the window.
+  - Sets an implicit wait of 10 seconds.
+  - Quits the browser after each test.
+- `LoginPage`:
+  - `open()` navigates to the URL defined in `Config.BASE_URL`.
+  - `login(username, password)` fills the username and password fields and clicks the Login button.
+  - `is_error_visible()` checks if the error banner is displayed after invalid login attempts.
+- `Dashboard`:
+  - `is_loaded()` verifies that the Dashboard header is visible and the URL contains `/dashboard`.
+  - Widget visibility methods such as `is_time_at_work_visible()` and `is_quick_launch_visible()` assert key UI components.
+  - Quick‑launch methods like `click_assign_leave()` navigate to specific sub‑pages and tests assert the expected URL fragments.
+
+## Extending the suite
+
+- Add new page objects under `pages/`.
+- Create additional test modules under `tests/` following the existing patterns.
+- Consider integrating CI (GitHub Actions, GitLab CI, etc.) and publishing the pytest HTML report as an artifact for each run.[web:21]
