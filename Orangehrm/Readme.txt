@@ -98,5 +98,7 @@ Create corresponding tests in test/ that use the shared driver fixture and metho
 
 Update config.Config with additional settings (e.g., alternative base URLs, credentials, timeouts) as the framework grows.​
 
-newly added file called helper
+delete the test_dashboard.py and test_login.py outside the pages
+
+
 
