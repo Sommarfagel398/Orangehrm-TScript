@@ -5,6 +5,8 @@ from config import Config
 
 
 class LoginPage:
+
+    #login variables to use
     USERNAME_INPUT = (By.NAME, "username")
     PASSWORD_INPUT = (By.NAME, "password")
     LOGIN_BUTTON = (By.XPATH, "//button[@type='submit']")

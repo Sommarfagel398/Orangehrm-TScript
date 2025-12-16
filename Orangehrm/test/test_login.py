@@ -1,9 +1,12 @@
+import pytest
+
+from config import Config
 from pages.login_page import LoginPage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-
+@pytest.mark.skipif(Config.LANG != "en", reason="only vlaid for English Text")
 class TestLogin:
     def test_login_page_loads(self, driver):
         login_page = LoginPage(driver)

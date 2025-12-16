@@ -6,6 +6,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class Dashboard:
+
+    #dashboard variables for testing
+
     # this is for url dashboard
     URL_PART = "/dashboard"
 
@@ -17,12 +20,12 @@ class Dashboard:
     PUNCH_STATUS = (By.XPATH, "//p[text()='Punched In']")
     TODAY_TIME = (By.XPATH, "//p[text()='Today']")
     THIS_WEEK_TIME = (By.XPATH, "//p[text()='This Week']")
+    PUNCH_IN = (By.XPATH,'//*[@id="app"]/div[1]/div[2]/div[2]/div/div[1]/div/div[2]/div[1]/div[2]/button')
 
     # Actions widget inside the form
     MY_ACTIONS_WIDGET = (By.XPATH, "//p[text()='My Actions']")
-    TIMESHEET_TO_APPROVE = (By.XPATH, "//*[contains(text(),'Timesheet to Approve')]")
-    PENDING_SELF_REVIEW = (By.XPATH, "//*[contains(text(),'Pending Self Review')]")
-    CANDIDATE_TO_INTERVIEW = (By.XPATH, "//*[contains(text(),'Candidate to Interview')]")
+    PENDING_SELF_REVIEW = (By.XPATH, '//*[@id="app"]/div[1]/div[2]/div[2]/div/div[2]/div/div[2]/div/div[1]')
+    CANDIDATE_TO_INTERVIEW = (By.XPATH, '//*[@id="app"]/div[1]/div[2]/div[2]/div/div[2]/div/div[2]/div/div[2]')
 
     # Quick Launch widget inside the form
     QUICK_LAUNCH_WIDGET = (By.XPATH, "//p[text()='Quick Launch']")
@@ -35,9 +38,12 @@ class Dashboard:
 
     # Buzz Latest Posts widget inside the container
     BUZZ_WIDGET = (By.XPATH, "//p[text()='Buzz Latest Posts']")
+    BUZZ_POST = (By.XPATH,'//*[@id="app"]/div[1]/div[2]/div[2]/div/div[4]/div/div[2]/div/div[1]')
+
 
     # Employees on Leave Today widget inside the container
     LEAVE_TODAY_WIDGET = (By.XPATH, "//p[text()='Employees on Leave Today']")
+    ON_LEAVE_SETTING = (By.XPATH,'//*[@id="app"]/div[1]/div[2]/div[2]/div/div[5]/div/div[1]/i')
     NO_EMPLOYEES_MESSAGE = (By.XPATH, "//*[text()='No Employees are on Leave Today']")
 
     # Employee Distribution widgets inside the container
@@ -49,6 +55,7 @@ class Dashboard:
         self.driver = driver
         self.wait = WebDriverWait(driver, 20)
 
+    #This is for confirmation if all widgets and forms in dashboard are displayed
     def is_loaded(self):
         header = self.wait.until(EC.visibility_of_element_located(self.DASHBOARD_HEADER))
         return header.is_displayed() and self.URL_PART in self.driver.current_url
@@ -78,6 +85,8 @@ class Dashboard:
         location = self.driver.find_element(*self.EMPLOYEE_LOCATION_CHART)
         return sub_unit.is_displayed() and location.is_displayed()
 
+    #This is to check if all quick actions are confirmed linked to the page or link
+
     def click_assign_leave(self):
         self.wait.until(EC.element_to_be_clickable(self.ASSIGN_LEAVE_BTN)).click()
 
@@ -96,6 +105,8 @@ class Dashboard:
     def click_my_timesheet(self):
         self.wait.until(EC.element_to_be_clickable(self.MY_TIMESHEET_BTN)).click()
 
+
+    #this part is for My Actions form
     def is_my_actions_loaded(self):
         form = self.wait.until(EC.visibility_of_element_located(self.MY_ACTIONS_WIDGET))
         return form.is_displayed() and self.URL_PART in self.driver.current_url
@@ -117,4 +128,48 @@ class Dashboard:
             EC.element_to_be_clickable(self.CANDIDATE_TO_INTERVIEW)
         )
         element.click()
+
+    #This is for the Buzz part
+    def is_buzz_loaded(self):
+        form = self.wait.until(EC.visibility_of_element_located(self.BUZZ_WIDGET))
+        return form.is_displayed() and self.URL_PART in self.driver.current_url
+
+    def buzz_post(self):
+        confirmed = self.wait.until(EC.presence_of_element_located(self.BUZZ_POST))
+        return confirmed.is_displayed()
+
+
+    #this is for pie chart of Employee Distribution By Sub unit
+
+    def subunit_panel(self):
+        panel = self.wait.until(EC.visibility_of_element_located(self.EMPLOYEE_SUB_UNIT_CHART))
+        return panel.is_displayed()
+
+    def get_subunit_panel(self):
+        return self.wait.until(
+            EC.visibility_of_element_located(self.EMPLOYEE_SUB_UNIT_CHART)
+        )
+
+    #this is for pie chart of Employee Distribution by Location
+
+    def location_panel(self):
+        panel = self.wait.until(EC.visibility_of_element_located(self.EMPLOYEE_LOCATION_CHART))
+        return panel.is_displayed()
+
+    def get_location_panel(self):
+        return self.wait.until(
+            EC.visibility_of_element_located(self.EMPLOYEE_LOCATION_CHART)
+        )
+
+    #for icon gear testing
+    def icon_test(self):
+        gear = self.wait.until(
+            EC.visibility_of_element_located(self.ON_LEAVE_SETTING)
+        )
+        return gear
+    #for time at work
+    def punch_in(self):
+        return self.wait.until(
+            EC.visibility_of_element_located(self.PUNCH_IN)
+        )
 
